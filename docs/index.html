@@ -195,7 +195,17 @@
         .swagger-ui .opblock-summary-path { color: #ffffff !important; font-weight: 500; font-size: 1rem; }
         .swagger-ui .opblock-summary-description { color: var(--text-muted) !important; }
         
-        /* Body sections */
+        /* Body sections & Headers */
+        .swagger-ui .opblock-section-header {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            box-shadow: none !important;
+        }
+        
+        .swagger-ui .opblock-section-header h4 {
+            color: #ffffff !important;
+        }
+
         .swagger-ui .opblock-body pre.microlight {
             background: #000000 !important;
             border-radius: 6px;
@@ -222,13 +232,29 @@
         }
 
         .swagger-ui table thead tr th,
-        .swagger-ui table thead tr td {
+        .swagger-ui table thead tr td,
+        .swagger-ui table tbody tr td {
             color: var(--text-main) !important;
             border-bottom: 1px solid var(--border-color);
         }
 
+        .swagger-ui .response-col_status {
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+
+        .swagger-ui .response-col_description {
+            color: var(--text-muted) !important;
+        }
+
         .swagger-ui .parameter__name { color: var(--text-main) !important; font-weight: 600;}
         .swagger-ui .parameter__type { color: var(--text-muted) !important; }
+        
+        /* Scheme Container & Servers */
+        .swagger-ui .scheme-container .servers-title,
+        .swagger-ui .scheme-container .schemes-title {
+            color: #ffffff !important;
+        }
 
         /* Authorize Button */
         .swagger-ui .btn.authorize {
