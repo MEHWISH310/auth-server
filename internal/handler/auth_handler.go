@@ -779,7 +779,7 @@ func (h *AuthHandler) DisableMFA(c *gin.Context) {
 		case errors.Is(err, service.ErrUserNotFound):
 			c.JSON(http.StatusNotFound, utils.ErrorResponse("User not found", err))
 		case errors.Is(err, service.ErrMFANotEnabled):
-			c.JSON(http.StatusBadRequest, utils.ErrorResponse(msgMFADisableFailed, err))
+			c.JSON(http.StatusConflict, utils.ErrorResponse(msgMFADisableFailed, err))
 		case errors.Is(err, service.ErrIncorrectPassword), errors.Is(err, service.ErrInvalidMFACode):
 			c.JSON(http.StatusUnauthorized, utils.ErrorResponse(msgMFADisableFailed, err))
 		default:

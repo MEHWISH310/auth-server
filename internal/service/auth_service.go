@@ -364,14 +364,15 @@ func (s *AuthService) DisableMFA(userID, password, code string) error {
 	}
 
 	if err := s.userRepo.Update(userID, map[string]interface{}{
-		"mfa_enabled": false,
-		"mfa_secret":  "",
+		"mfa_enabled":  false,
+		"mfa_secret":   "",
+		"backup_codes": nil,
 	}); err != nil {
 		return fmt.Errorf("failed to disable MFA: %w", err)
 	}
 
 	if err := s.auditService.LogEvent(&userID, "MFA_DISABLED", "USER", userID, "", "", nil); err != nil {
-		log.Printf("failed to write MFA_DISABLED audit log for user %s: %v", userID, err)
+		return fmt.Errorf("failed to write MFA_DISABLED audit log for user %s: %w", userID, err)
 	}
 	return nil
 }
