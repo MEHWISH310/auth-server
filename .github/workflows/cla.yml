@@ -13,19 +13,29 @@ permissions:
   statuses: write
 
 jobs:
-  cla:
+  CLAAssistant:
     runs-on: ubuntu-latest
-    # Trigger on:
-    # 1. A PR comment matching the approval phrases
-    # 2. A PR description edit where the CLA checkbox is ticked
-    # 3. Standard automated PR events (opened, synchronize, closed)
-    if: >
-      (github.event_name == 'issue_comment' && github.event.issue.pull_request && 
-      (contains(github.event.comment.body, 'recheck') || contains(github.event.comment.body, 'I have read the CLA and agree to its terms'))) ||
-      (github.event_name == 'pull_request_target' && github.event.action == 'edited' && contains(github.event.pull_request.body, '- [x] I have read and signed the CLA')) ||
-      (github.event_name == 'pull_request_target' && github.event.action != 'edited')
+    if: |
+      (
+        github.event_name == 'issue_comment' &&
+        github.event.issue.pull_request &&
+        (
+          contains(github.event.comment.body, 'recheck') ||
+          contains(github.event.comment.body, 'I have read the CLA and agree to its terms')
+        )
+      ) ||
+      (
+        github.event_name == 'pull_request_target' &&
+        github.event.action == 'edited' &&
+        contains(github.event.pull_request.body, '- [x] I have read and signed the CLA')
+      ) ||
+      (
+        github.event_name == 'pull_request_target' &&
+        github.event.action != 'edited'
+      )
     steps:
       - name: "CLA Assistant"
+        if: always()
         uses: contributor-assistant/github-action@v2.6.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
