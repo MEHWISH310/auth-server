@@ -93,7 +93,7 @@ func (s *EmailService) SendEmail(to []string, subject string, templateName strin
 
 	// Thread-safe template lookup
 	s.mu.RLock()
-	t, ok := s.templates[templateName]
+	_, ok := s.templates[templateName]
 	s.mu.RUnlock()
 
 	if !ok {
