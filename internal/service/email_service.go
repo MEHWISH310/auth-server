@@ -100,12 +100,6 @@ func (s *EmailService) SendEmail(to []string, subject string, templateName strin
 		return &ErrTemplateNotFound{Name: templateName}
 	}
 
-	// Clone template before executing to avoid concurrent execution issues
-	cloned, err := t.Clone()
-	if err != nil {
-		return fmt.Errorf("failed to clone email template %q: %w", templateName, err)
-	}
-
 	var body bytes.Buffer
 	if err := cloned.Execute(&body, data); err != nil {
 		return fmt.Errorf("failed to execute email template %q: %w", templateName, err)
